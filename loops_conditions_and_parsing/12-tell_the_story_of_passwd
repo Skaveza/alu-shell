@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # This script displays the content of the file /etc/passwd using a while loop and IFS.
 
-# Set the input field separator (IFS) to ":" to parse the /etc/passwd
 # Open the /etc/passwd file for reading
 while IFS=: read -r username _ uid gid gecos home shell; do
     # Extract the group name from /etc/group file
@@ -17,7 +16,6 @@ while IFS=: read -r username _ uid gid gecos home shell; do
     user_id_info=$(echo "$shadow" | awk -F ':' '{print $8}')
 
     # Print the formatted output
-    echo "The user $username is part of the $gid gang, lives in $home and rides $shell."
-    echo "User ID's place is protected by the passcode $password, more info about the user here: $user_id_info"
-    echo
+    printf "The user %s is part of the %s gang, lives in %s and rides %s.\n" "$username" "$group" "$home" "$shell"
+    printf "User ID's place is protected by the passcode %s, more info about the user here: %s\n\n" "$password" "$user_id_info"
 done < /etc/passwd
