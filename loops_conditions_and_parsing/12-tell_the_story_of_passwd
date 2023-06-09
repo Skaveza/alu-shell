@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 # This script displays the content of the file /etc/passwd using a while loop and IFS.
-# Set the input field separator (IFS) to ":" to parse the /etc/passwd file
-IFS=":"
-
+# Set the input field separator (IFS) to ":" to parse the /etc/passwd
 # Open the /etc/passwd file for reading
-while read -r username password userid groupid userdesc homedir shell
-do
-  echo "The user $username is part of the $groupid gang, lives in $homedir, and rides $shell."
-  echo "User ID's place is protected by the passcode $password, more info about the user here: $userdesc"
-  echo
+while IFS=: read -r username _ uid gid gecos home shell; do
+    # Extract the group name from /etc/group file
+    group=$(grep -E "^([^:]+:){2}$gid:" /etc/group | cut -d ':' -f 1)
+
+    # Extract the user ID info from /etc/shadow file
+    shadow=$(grep -E "^$username:" /etc/shadow)
+
+    # Extract the password from shadow entry
+    password=$(echo "$shadow" | awk -F ':' '{print $2}')
+
+    # Extract additional user ID info from shadow entry
+    user_id_info=$(echo "$shadow" | awk -F ':' '{print $8}')
+
+    # Print the formatted output
+    echo "The user $username is part of the $gid gang, lives in $home and rides $shell."
+    echo "User ID's place is protected by the passcode $password, more info about the user here: $user_id_info"
+    echo
 done < /etc/passwd
