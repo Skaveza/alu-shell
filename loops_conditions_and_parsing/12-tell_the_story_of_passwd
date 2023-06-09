@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # This script displays the content of the file /etc/passwd using a while loop and IFS.
+
 # Set the input field separator (IFS) to ":" to parse the /etc/passwd
 # Open the /etc/passwd file for reading
 while IFS=: read -r username _ uid gid gecos home shell; do
