@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
-# This script displays the time from 0:01 to 12:59
-hour=0
-minute=1
+# Script: Display Time
 
-# Print the time for 12 hours and 59 minutes
-while [ $hour -lt 12 ]; do
-    echo "Hour: $hour"
-    
-    while [ $minute -le 59 ]; do
-        echo "$minute"
-        minute=$((minute + 1))
+hours=0
+
+while [ $hours -le 12 ]; do
+    printf "Hour: %d\n" $hours
+    minutes=1
+    while [ $minutes -le 59 ]; do
+        printf "%d\n" $minutes
+        ((minutes++))
     done
-
-    hour=$((hour + 1))
-    minute=1
+    ((hours++))
 done
