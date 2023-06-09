@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # This script displays the content of the file 
 # Open the /etc/passwd file for reading
 exec 3< /etc/passwd
