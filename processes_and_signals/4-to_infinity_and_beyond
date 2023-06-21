@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-displaying
+#displaying
 while [[ 1 -eq 1 ]]; do
        echo "To infinity and beyond"
        sleep 2
