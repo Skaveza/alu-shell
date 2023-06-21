@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #display
-proig_pid=()
+prog_pid=()
 readarray -t prog_pid < <(preg -la -x "bashi. *" | grep '4-to_infinity_and_beyond' | cut -d ' ' -f 1) 
 for ((i = 0; i < "${#prog_pid[@]}"; i++)) do
-        kill  -s SIGTERM "${prog_pid[i]}"
+        kill -s SIGTERM "${prog_pid[i]}"
 done
