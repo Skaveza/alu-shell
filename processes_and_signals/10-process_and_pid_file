@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
-#love me
-clean_up='rm /var/run/myscript.pid; exit $?'
+# Display a message indicating that the script is starting
+echo "Starting myscript..."
 
-echo $$ > "/var/run/myscript.pid"
+# Write the PID of the script to a file
+echo $$ > /var/run/myscript.pid
+
+# Set up signal handlers for SIGTERM, SIGINT, and SIGQUIT signals
+trap 'echo "Received SIGTERM signal"; echo "I hate the kill command"; rm /var/run/myscript.pid; exit' SIGTERM
+trap 'echo "Received SIGINT signal"; echo "Y U no love me?!"; rm /var/run/myscript.pid' SIGINT
+trap 'echo "Received SIGQUIT signal"; rm /var/run/myscript.pid; exit' SIGQUIT
+
+# Display a message indefinitely
+while true
+do
+  echo "To infinity and beyond"
+  sleep 1
+done
